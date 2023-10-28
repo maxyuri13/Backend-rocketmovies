@@ -4,7 +4,7 @@ const AppError = require("../utils/AppError")
 class MovieNotesController {
   async create(request, response) {
     const { title, description, rating, movieTags } = request.body;
-    const { user_id } = request.params;
+    const user_id = request.user.id;
     const ratingCheck = parseInt(rating, 10);
 
     if (isNaN(ratingCheck) || ratingCheck < 1 || ratingCheck > 5) {
@@ -27,7 +27,7 @@ class MovieNotesController {
     });
 
     await knex("movieTags").insert(movieTagsInsert);
-    response.json();
+    return response.json();
   }
   async show(request, response) {
     const { id } = request.params;
@@ -46,7 +46,8 @@ class MovieNotesController {
     return response.json();
   }
   async index(request, response) {
-    const { title, user_id, movieTags } = request.query;
+    const { title, movieTags } = request.query;
+    const user_id = request.user.id;
     let movieNotes;
 
     if(movieTags) {
