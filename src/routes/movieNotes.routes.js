@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const MovieNotesController = require("../Controllers/MovieNotesController");
+const MovieNotesController = require("../controllers/MovieNotesController");
 const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
 const movieNotesRoutes = Router();
